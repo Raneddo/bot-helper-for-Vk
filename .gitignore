@@ -1,0 +1,9 @@
+__pycache__
+.idea/
+.vscode/
+kek.log
+out_sorry.log
+vk_api
+venv
+vk_api_rep
+db.sqlite3
