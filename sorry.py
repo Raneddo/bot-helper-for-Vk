@@ -5,6 +5,7 @@ from datetime import datetime
 from random import randint
 
 import vk_api
+from vk_api import VkUserPermissions
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.longpoll import VkLongPoll
 # from vk_api.keyboard import VkKeyboard, VkKeyboardColor
@@ -15,6 +16,11 @@ from commands import Commands
 from db_queries import DataBase
 
 auto_read = False
+
+
+def two_factor():
+    return input(), True
+
 
 try:
     database = sqlite3.connect('db.sqlite3')
@@ -27,13 +33,11 @@ conn = database.cursor()
 
 db = DataBase(conn, database)
 
-
-session = vk_api.VkApi(app_id=config.app_id,
-                       token=config.token)
+session = vk_api.VkApi(app_id=config.app_id, token=config.token)
 session_group = vk_api.VkApi(token=config.bot_token)
 session.RPS_DELAY = 1
 api = session.get_api()
-longpoll = VkLongPoll(session, mode=(2 + 8 + 32 + 64 + 128 + 4096))
+
 bot_api = session_group.get_api()
 bot = VkBotLongPoll(vk=session_group, group_id=config.group_id)
 
@@ -44,7 +48,7 @@ bot_api.messages.send(user_id=config.me,
                                datetime.today().__str__()),
                       random_id=randint(0, 999999999))
 
-processing = Commands(api, longpoll, auto_read, session, bot_api, bot, db)
+processing = Commands(api, auto_read, session, bot_api, bot, db)
 
 while True:
     try:

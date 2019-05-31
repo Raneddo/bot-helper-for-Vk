@@ -1,14 +1,15 @@
 from datetime import datetime
 
-me = 1337 # some number
-app_id = 1337 # some number
-group_id = 1337 # some number
+me = 135554479
+app_id = 5909741
+group_id = 177021512
 METHODS_LIST = {'meme', 'meet', 'age', 'friends', 'help'}
 
-token = 'token'  # @liprv
+token = 'token must be here'
 
-bot_token = 'bot token (group token)'
+password = 'pass must be here'
 
+bot_token = 'token must be here'
 
 MAYBE_ERROR = 'Вероятно, вы допустили какую-то ошибку. ' \
               'Но, я проверю логи и пойму, если ошибка у меня.'

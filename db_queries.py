@@ -2,10 +2,8 @@ import sqlite3
 
 
 class DataBase:
-    conn: sqlite3.Cursor
-    db: sqlite3.Connection
 
-    def __init__(self, conn, db):
+    def __init__(self, conn: sqlite3.Cursor, db: sqlite3.Connection):
         self.conn = conn
         self.db = db
 

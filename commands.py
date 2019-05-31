@@ -2,17 +2,15 @@ from random import randint
 from time import time
 import config
 from db_queries import DataBase
-from functions import meet, help, age, friends, meme, bot_users, status
+from functions import meet, help, age, friends, meme, bot_users, status, average
 
 
 class Commands:
-    db: DataBase
 
-    def __init__(self, api, longpoll, auto_read, session, bot_api, bot, db):
+    def __init__(self, api, auto_read, session, bot_api, bot, db):
         self.api = api
         self.bot_api = bot_api
         self.bot = bot
-        self.longpoll = longpoll
         self.auto_read = auto_read
         self.session = session
         self.people = []
@@ -44,9 +42,12 @@ class Commands:
         elif command == '/age':
             age.age(self, event, options)
 
+        elif command == '/average':
+            average.average(self, event, options)
+
         elif command == '/friends':
             friends.friends(self, event, options)
-
+        
         elif event.object.peer_id == config.me:
             if command == '/broadcast':
                 bot_users.broadcast(self, options)

@@ -121,11 +121,25 @@ def get_age(self, user_id: int) -> str:
     user = User(user_id, fn, ln)
     if public['count'] > 1:
         user.public = int(public['items'][-1])
-        return get_by_public(self, user)
+        ans = self.api.execute.findByPublic(fn=fn, ln=ln, public=user.public, user_id=user_id)
+        if ans is None:
+            return ("К сожалению, данный пользователь "
+                    "не просто скрыл возраст, а даже "
+                    "не указал его, и теперь узнать вы можете "
+                    "лишь написав лично.\n"
+                    )
+        return str(ans) + ' лет'
 
     elif city_id is not None:
         user.city_id = int(city_id['id'])
-        return get_by_city(self, user)
+        ans = self.api.execute.findByCity(fn=fn, ln=ln, city_id=city_id, user_id=user_id)
+        if ans is None:
+            return ("К сожалению, данный пользователь "
+                    "не просто скрыл возраст, а даже "
+                    "не указал его, и теперь узнать вы можете "
+                    "лишь написав лично.\n"
+                    )
+        return str(ans) + ' лет'
     else:
         return "К сожалению, не могу дать вам ответа, так как у человека не указан город, " \
                "без которого нагрузка на сервер сильно возрастает и вк блокирует запросы"
